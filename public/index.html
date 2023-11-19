@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Libre+Baskerville:wght@400;700&family=Oswald&family=Roboto+Slab:wght@300&family=Space+Grotesk&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <title>Bionic Reading</title>
+</head>
+<body>
+    <h1>Bionic Reading</h1>
+    <div class="upload-container">
+        <input type="file" id="inpFile">
+        <!-- <label for="inpText" id="inpTextLabel">Copy Text</label> -->
+        <label for="inpFile" id="inpFileLabel">Choose PDF</label>
+        <button type="button" id="btnUpload">Convert</button>
+    </div>
+    <br>
+    <br>
+    <div id="resultText" class="formatedText resultDivStyle"></div>
+    <br>
+    <br>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const inpFile = document.getElementById("inpFile");
+            const btnUpload = document.getElementById("btnUpload");
+            const resultText = document.getElementById("resultText");
+            const inpTextLabel = document.getElementById("inpTextLabel");
+
+            // inpTextLabel.addEventListener("click", () => {
+            //     // Your click event handler logic here
+            // });
+
+            btnUpload.addEventListener("click", () => {
+                const formData = new FormData();
+                formData.append("pdfFile", inpFile.files[0]);
+
+                fetch("/extract-text", {
+                    method: "post",
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(extractedText => {
+                    function addStylesToIndexRange(originalText, startIndex, endIndex, targetDiv) {
+                        for (var i = 0; i < originalText.length; i++) {
+                            var span = document.createElement('span');
+                            span.textContent = originalText[i];
+
+                            if (i >= startIndex && i <= endIndex) {
+                                span.classList.add('highlight');
+                            }
+
+                            targetDiv.appendChild(span);
+                        }
+                    }
+
+                    function containsSymbol(str) {
+                        const symbols = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/;
+                        return !symbols.test(str);
+                    }
+
+                    const trimText = extractedText;
+                    const wordsArray = extractedText.split(/\b/).map(word => word.trim());
+
+                    resultText.innerHTML = '';
+
+                    for (const word of wordsArray) {
+                        if (word !== '' && word !== ' ') {
+                            const lengthOfWord = word.length - 1;
+                            const startIndex = 0;
+                            const endIndex = Math.min(lengthOfWord - 1, Math.floor(lengthOfWord / 2) - 1);
+
+                            if (lengthOfWord > 1 && lengthOfWord < 4) {
+                                addStylesToIndexRange(word, startIndex, (lengthOfWord - 1), resultText);
+                            } else {
+                                addStylesToIndexRange(word, startIndex, endIndex, resultText);
+                            }
+                        } else {
+                            resultText.appendChild(document.createTextNode(' '));
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

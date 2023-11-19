@@ -1,0 +1,16 @@
+{
+  "name": "bionicreading",
+  "version": "1.0.0",
+  "description": "This is web application that allows you to convert text to bionic reading format, allowing you to read faster.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jasmeeet Salh",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.2",
+    "pdf-parse": "^1.1.1"
+  }
+}

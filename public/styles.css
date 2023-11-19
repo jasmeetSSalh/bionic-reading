@@ -1,0 +1,77 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+h1 {
+    color: #3498db;
+}
+
+.upload-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+#inpFile {
+    display: none;
+}
+
+#inpFileLabel,
+#inpTextLabel,
+#btnUpload {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 15px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#inpFileLabel:hover,
+#inpTextLabel:hover,
+#btnUpload:hover {
+    background-color: #2980b9;
+}
+
+.textArea {
+    width: 80%;
+    height: 300px;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: none;
+    font-size: 16px;
+}
+
+.highlight{
+    color: #cb2a2a;
+    font-weight: bold;
+}
+
+.formatedText{
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 3.2vw;
+}
+
+.resultDivStyle{
+    width: 85%;
+    height: 100vh;
+    margin-top: 20px;
+    padding: 3.2vw;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: auto;
+}
+
+#inpTextContainer {
+    display: none;
+}
