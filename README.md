@@ -25,7 +25,7 @@ To run the project locally, follow these steps:
 1. Clone this repository:
 
    ```bash
-   git clone [repository_url]
+   git clone https://github.com/jasmeetSSalh/bionic-reading
    ```
 
 2. Install dependencies:
